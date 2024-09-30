@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${person.getName()}">name</title>
+</head>
+<body>
+
+<div th:text="'ФИО человека: ' + ${person.getName()}">name</div>
+<div th:text="'Год рождения человека: ' + ${person.getBirthYear()}">birth year"</div>
+
+<hr/>
+
+<div th:if="${!#lists.isEmpty(persons_books)}">
+    <div>Список взятых книг:</div>
+    <br/>
+    <div th:each="book : ${persons_books}">
+        <a th:text="${book.getAuthor()} + ' - ' + ${book.getTitle()} + ', ' + ${book.getYearOfPublication()} + 'г.'">
+            author - title, year.
+        </a>
+    </div>
+</div>
+
+<div th:if="${#lists.isEmpty(persons_books)}">
+    <div>У данного человека еще нет взятых книг.</div>
+</div>
+
+<hr/>
+
+<form th:method="GET" th:action="@{/people/{id}/edit (id = ${person.getId()})}">
+    <input type="submit" value="Изменить человека"/>
+</form>
+<form th:method="DELETE" th:action="@{/people/{id} (id = ${person.getId()})}">
+    <input type="submit" value="Удалить человека"/>
+</form>
+
+</body>
+</html>
